@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Author: Grant Kang -->
+		<!-- USED FIREFOX TO TEST -->
+		<title>Homework03: Text Adventure Game V2</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<style>
+			.table td {
+			   text-align: center;   
+			}
+			.table th {
+			   text-align: center;
+			}
+		</style>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src = "main.js"></script>
+		<script>
+			var started = false;
+			$(document).ready(function(){
+				$("#startButton").click(function(){
+					started = true;
+					startUp();
+					$("#startButton").text("Click to Restart!")
+					$("#eventLog").text("");
+					$("#playerStatus").text("");
+					$("#upButton").removeAttr('disabled');
+					$("#downButton").removeAttr('disabled');
+					$("#leftButton").removeAttr('disabled');
+					$("#rightButton").removeAttr('disabled');
+					updateUserStatus();
+				})
+				$("#upButton").click(function(){
+					if(started){
+						adventurer.moveUp();
+						event('u');
+						updateUserStatus();
+					} else
+						$("#eventLog").text("Game has not started yet");
+				})
+				$("#leftButton").click(function(){
+					if(started){
+						adventurer.moveLeft();
+						event('l');
+						updateUserStatus();
+					}else
+						$("#eventLog").text("Game has not started yet");
+				})
+				$("#rightButton").click(function(){
+					if(started){
+						adventurer.moveRight();
+						event('r');
+						updateUserStatus();
+					}else
+						$("#eventLog").text("Game has not started yet");
+				})
+				$("#downButton").click(function(){
+					if(started){
+						adventurer.moveDown();
+						event('d');
+						updateUserStatus();
+					}else
+						$("#eventLog").text("Game has not started yet");
+				})
+				$('#takeChallengeButton').click(function(){
+					challengeSegment();
+				})
+
+			})
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<h3>Homework03: Text Adventure Game V2 - Author:Grant Kang</h3>
+			<button id="startButton">Click to Start Game!</button>
+			<p>GOAL: Defeat the two bosses to collect the prizes and make your way to the goal!</p>
+			<table class="table table-bordered" id="controls" style="width:30%">
+				<th colspan=3 class="active">Controls</th>
+				<tr>
+					<td></td>
+					<td><button id="upButton">UP</button></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><button id="leftButton">LEFT</button></td>
+					<td><button id="downButton">DOWN</button></td>
+					<td><button id="rightButton">RIGHT</button></td>
+				</tr>
+			</table>
+			<button id="takeChallengeButton" disabled=disabled>Run Challenge?</button><strong id="challengeNotification" hidden=hidden> <-- This room has a challenge!!</strong>
+			<h2>Map</h2>
+			<table class="table table-bordered" id="mazeViewer"><!-- Displays the maze(probably through tables) -->
+
+			</table>
+			<table class="table table-bordered" id="legend">
+				<th colspan=9 class="active">Legend</th>
+				<tbody>
+					<tr>
+						<td class="success">A:Adventurer</td>
+						<td class="danger">X:Unknown</td>
+						<td class="info">S:Spikes</td>
+						<td class="info">W:Wall</td>
+						<td class="primary">B:Boss</td>
+						<td class="primary">L:LowMonster</td>
+						<td class="primary">M:MediumMonster</td>
+						<td class="success">H:HealingPad</td>
+						<td class="success">G:GOAL!</td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="userStatus"><!-- Displays HP, atk, prizes, current position. -->
+
+			</div>
+			<table class="table table-bordered">
+				<th colspan=9 class="active">EventLog</th>
+				<tbody>
+					<tr>
+						<td>
+							<pre id="eventLog" style="text-align:left; height: 10pc; overflow-y: scroll;""><!-- Going to use this to display messages. -->
+
+							</pre>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</pre>
+		</div>
+
+	
+	</body>
+</html>
